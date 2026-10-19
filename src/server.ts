@@ -18,3 +18,14 @@ const patients =[
 app.get('/patients', (request, response)=>{
     response.json(patients);
 });
+
+app.get('/patients/:id',(req,res)=>{
+    const id = Number(req.params.id);
+    console.log('Me han pedido el paciente', id);
+    for(const patient of patients){
+        if(patient.id === id){
+            return res.json(patient);
+        }
+    }
+    res.status(404).json({error: 'Paciente no encontrado'});
+});

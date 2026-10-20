@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Clinica Mario Cazaña
   version: 1.0.0
-  descripcion: APE para gestionar los pacientes de la Clinica.
+  description: API para gestionar los pacientes de la Clinica.
 
 servers:
   - url: http://localhost:3000
@@ -13,4 +13,27 @@ paths:
      summary: Comprobar que la API responde
      responses:
        "200":
-         description: La API esta vacia
+         description: La API esta viva
+  
+  /patients:
+    get:
+      summary: Listar todos los pacientes
+      responses:
+        "200":
+          description: Lista de pacientes
+
+
+  /patients/{id}:
+    get:
+      summary: Obtener un paciente por su id
+      parameters:
+        - name: id                        
+          in: path                        
+          required: true                 
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: El paciente encontrado
+        "404":                            
+          description: Paciente no encontrado

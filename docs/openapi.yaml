@@ -66,3 +66,28 @@ paths:
       responses:
         "204":
           description: Paciente borrado
+    
+    patch:
+      summary: Cambiar datos de un paciente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                age:
+                  type: integer
+                  example: 22
+      responses:
+        "200":
+          description: Paciente actualizado
+        "404":
+          description: Paciente no encontrado

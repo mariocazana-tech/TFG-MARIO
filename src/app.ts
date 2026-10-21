@@ -59,4 +59,20 @@ app.delete('/patients/:id',(req, res)=> {
     res.status(204).send();
 });
 
+app.patch('/patients/:id', (req, res) => {
+  const id = Number(req.params.id);
+  for (const patient of patients) {
+    if (patient.id === id) {
+      if (req.body.name !== undefined) {
+        patient.name = req.body.name;
+      }
+      if (req.body.age !== undefined) {
+        patient.age = req.body.age;
+      }
+      return res.json(patient);
+    }
+  }
+  res.status(404).json({ error: 'Paciente no encontrado' });
+});
+
 export default app;

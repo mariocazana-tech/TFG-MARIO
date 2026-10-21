@@ -32,7 +32,7 @@ paths:
               properties:
                 name:
                   type: string 
-                  example: Lucía
+                  example: Lucia
                 age:
                   type: integer
                   example: 30
@@ -55,3 +55,14 @@ paths:
           description: El paciente encontrado
         "404":                            
           description: Paciente no encontrado
+    delete:
+      summary: Borrar un paciente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Paciente borrado

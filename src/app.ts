@@ -15,10 +15,11 @@ app.get('/',(request, response)=>{
     response.send('Bienvenido a la clinica mario');
 });
 
-const patients =[
+let patients =[
     {id: 1, name: 'Arturo', age: 20},
     {id: 2, name: 'Pedro', age: 21},
 ];
+let nextId = 3;
 
 app.get('/patients', (request, response)=>{
     response.json(patients);
@@ -36,13 +37,26 @@ app.get('/patients/:id',(req,res)=>{
 });
 app.post('/patients', (req, res)=>{
     const newPatient = {
-        id: patients.length + 1,
+        id: nextId,
         name: req.body.name,
         age: req.body.age,
     };
     patients.push(newPatient);
+    nextId = nextId +1;
     res.status(201).json(newPatient);
 
+});
+
+app.delete('/patients/:id',(req, res)=> {
+    const id = Number(req.params.id);
+    const remaining = [];
+    for (const patient of patients){
+        if(patient.id !== id){
+            remaining.push(patient);
+        }
+    }
+    patients = remaining;
+    res.status(204).send();
 });
 
 export default app;

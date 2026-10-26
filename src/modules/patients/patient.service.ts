@@ -4,8 +4,8 @@ export async function listPatients(){
     return await patientRepository.findAll();
 }
 
-export function getPatient(id: number){
-    return patientRepository.findById(id);
+export async function getPatient(id: number){
+    return await patientRepository.findById(id);
 }
 
 export async function createPatient(name: string, age: number){

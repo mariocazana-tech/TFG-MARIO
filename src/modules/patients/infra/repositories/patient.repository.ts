@@ -12,13 +12,9 @@ export async function findAll(): Promise<Patient[]> {
   const result = await pool.query('SELECT * FROM patients');
   return result.rows; 
 }
-export function findById(id: number): Patient | undefined {
-    for (const patient of patients){
-        if (patient.id === id){
-            return patient;
-        }
-    }
-    return undefined;
+export async function findById(id: number): Promise<Patient | undefined> {
+  const result = await pool.query('SELECT * FROM patients WHERE id = $1', [id]);
+  return result.rows[0];
 }
 
 export async function create(name: string, age: number): Promise<Patient> {

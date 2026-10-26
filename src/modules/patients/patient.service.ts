@@ -8,8 +8,8 @@ export function getPatient(id: number){
     return patientRepository.findById(id);
 }
 
-export function createPatient(name: string, age: number){
-    return patientRepository.create(name, age);
+export async function createPatient(name: string, age: number){
+    return await patientRepository.create(name, age);
 }
 
 export function updatePatient(id: number, name?: string, age?: number){

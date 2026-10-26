@@ -21,15 +21,12 @@ export function findById(id: number): Patient | undefined {
     return undefined;
 }
 
-export function create(name: string, age: number): Patient{
-    const newPatient: Patient = {
-        id: nextId,
-        name: name,
-        age: age,
-    };
-    patients.push(newPatient);
-    nextId = nextId + 1;
-    return newPatient;
+export async function create(name: string, age: number): Promise<Patient> {
+  const result = await pool.query(
+    'INSERT INTO patients (name, age) VALUES ($1, $2) RETURNING *',
+    [name, age]
+  );
+  return result.rows[0];
 }
 
 export function update(id: number, name?: string, age?: number): Patient | undefined{

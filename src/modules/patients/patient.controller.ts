@@ -20,9 +20,13 @@ export function getPatientById(req: Request, res: Response){
     res.json(patient);
 }
 
-export function createPatient(req: Request, res: Response){
-    const newPatient = patientService.createPatient(req.body.name, req.body.age);
-    res.status(201).json(newPatient);
+export async function createPatient(req: Request, res: Response){
+    try{
+        const newPatient = await patientService.createPatient(req.body.name, req.body.age);
+        res.status(201).json(newPatient);
+    }catch (eror){
+        res.status(500).json({ error: 'Error del servidor'});
+    } 
 }
 
 export function updatePatient(req: Request, res: Response){

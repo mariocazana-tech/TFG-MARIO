@@ -16,6 +16,6 @@ export function updatePatient(id: number, name?: string, age?: number){
     return patientRepository.update(id, name, age);
 }
 
-export function deletePatient(id: number){
-    return patientRepository.remove(id);
+export async function deletePatient(id: number){
+    return await patientRepository.remove(id);
 }

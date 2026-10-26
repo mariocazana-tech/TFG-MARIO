@@ -42,11 +42,15 @@ export function updatePatient(req: Request, res: Response){
     res.json(patient);
 }
 
-export function deletePatient(req: Request, res: Response){
-    const id = Number(req.params.id);
-    const deleted = patientService.deletePatient(id);
+export async function deletePatient(req: Request, res: Response){
+    try{
+        const id = Number(req.params.id);
+    const deleted = await patientService.deletePatient(id);
     if(deleted === false){
         return res.status(404).json({error: 'Paciente no encontrado'});
     }
     res.status(204).send();
+    }catch (error){
+        res.status(500).json({ error: 'Error del servidor'});
+    }
 }

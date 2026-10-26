@@ -39,17 +39,7 @@ export function update(id: number, name?: string, age?: number): Patient | undef
     return patient;
 }
 
-export function remove(id: number): boolean{
-    const patient = findById(id);
-    if (patient === undefined){
-        return false;
-    }
-    const remaining: Patient[] = [];
-    for(const patient of patients){
-        if(patient.id !== id){
-            remaining.push(patient);
-        }
-    }
-    patients = remaining;
-    return true;
+export async function remove(id: number): Promise<boolean>{
+    const result = await pool.query('DELETE FROM patients WHERE id = $1', [id]);
+    return result.rowCount === 1;
 }

@@ -2,9 +2,13 @@ import { Request, Response } from 'express';
 import * as patientService from './patient.service';
 import { remove } from './infra/repositories/patient.repository';
 
-export function getPatients(req: Request, res: Response){
-    const patients = patientService.listPatients();
-    res.json(patients);
+export async function getPatients(req: Request, res: Response){
+    try{
+        const patients = await patientService.listPatients();
+        res.json(patients);
+    } catch (error){
+        res.status(500).json({ error: 'Error del servidor'});
+    }
 }
 
 export function getPatientById(req: Request, res: Response){

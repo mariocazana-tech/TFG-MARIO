@@ -1,5 +1,6 @@
 import { push } from 'stream/iter';
 import { Patient } from '../../types/patient.types';
+import { pool } from '../../../../database/pool';
 
 let patients: Patient[] = [
     {id: 1, name: 'Arturo', age: 20},
@@ -7,10 +8,10 @@ let patients: Patient[] = [
 ];
 let nextId = 3;
 
-export function findAll(): Patient[]{
-    return patients;
+export async function findAll(): Promise<Patient[]> {
+  const result = await pool.query('SELECT * FROM patients');
+  return result.rows; 
 }
-
 export function findById(id: number): Patient | undefined {
     for (const patient of patients){
         if (patient.id === id){

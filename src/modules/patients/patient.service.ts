@@ -1,7 +1,7 @@
 import * as patientRepository from './infra/repositories/patient.repository';
 
-export function listPatients(){
-    return patientRepository.findAll();
+export async function listPatients(){
+    return await patientRepository.findAll();
 }
 
 export function getPatient(id: number){

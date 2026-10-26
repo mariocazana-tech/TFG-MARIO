@@ -7,13 +7,14 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "migrate": "node-pg-migrate -j ts -m src/database/migrations"
+},
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.5",
     "@types/pg": "^8.23.1",
     "@types/swagger-ui-express": "^4.1.8",
+    "node-pg-migrate": "^9.0.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   },
@@ -25,4 +26,3 @@
     "yaml": "^2.9.1"
   }
 }
-

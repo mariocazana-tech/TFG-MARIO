@@ -25,6 +25,10 @@ export async function getPatientById(req: Request, res: Response){
 
 export async function createPatient(req: Request, res: Response){
     try{
+        if (req.body.name === undefined || req.body.age === undefined) {
+            return res.status(400).json({ error: 'Faltan name o age' });
+
+        }
         const newPatient = await patientService.createPatient(req.body.name, req.body.age);
         res.status(201).json(newPatient);
     }catch (error){

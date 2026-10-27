@@ -25,18 +25,12 @@ export async function create(name: string, age: number): Promise<Patient> {
   return result.rows[0];
 }
 
-export function update(id: number, name?: string, age?: number): Patient | undefined{
-    const patient = findById(id);
-    if(patient === undefined){
-        return undefined;
-    }
-    if(name !== undefined){
-        patient.name = name;
-    }
-    if(age !== undefined){
-        patient.age = age;
-    }
-    return patient;
+export async function update(id: number, name?: string, age?: number): Promise<Patient | undefined> {
+  const result = await pool.query(
+    'UPDATE patients SET name = COALESCE($2, name), age = COALESCE($3, age) WHERE id = $1 RETURNING *',
+    [id, name, age]
+  );
+  return result.rows[0];
 }
 
 export async function remove(id: number): Promise<boolean>{

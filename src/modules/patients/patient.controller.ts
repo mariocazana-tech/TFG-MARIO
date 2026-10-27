@@ -29,17 +29,22 @@ export async function createPatient(req: Request, res: Response){
         const newPatient = await patientService.createPatient(req.body.name, req.body.age);
         res.status(201).json(newPatient);
     }catch (error){
+        console.error(error);
         res.status(500).json({ error: 'Error del servidor'});
     } 
 }
 
-export function updatePatient(req: Request, res: Response){
-    const id = Number(req.params.id);
-    const patient = patientService.updatePatient(id, req.body.name, req.body.age);
+export async function updatePatient(req: Request, res: Response){
+    try{
+        const id = Number(req.params.id);
+    const patient = await patientService.updatePatient(id, req.body.name, req.body.age);
     if(patient === undefined){
         return res.status(404).json({error: 'Paciente no encontrado'});
     }
     res.json(patient);
+    }catch (error){
+        res.status(500).json({ error: 'Error del servidor'});
+    }
 }
 
 export async function deletePatient(req: Request, res: Response){

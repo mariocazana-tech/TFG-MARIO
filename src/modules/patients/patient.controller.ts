@@ -13,6 +13,9 @@ export async function getPatients(req: Request, res: Response){
 export async function getPatientById(req: Request, res: Response){
     try{
     const id = Number(req.params.id);
+    if (!Number.isInteger(id)){
+        return res.status(400).json({ error: 'El id debe ser un número' });
+    }
     const patient = await patientService.getPatient(id);
     if(patient === undefined){
         return res.status(404).json({error: 'Paciente no encontrado'});
@@ -40,6 +43,9 @@ export async function createPatient(req: Request, res: Response){
 export async function updatePatient(req: Request, res: Response){
     try{
         const id = Number(req.params.id);
+        if (!Number.isInteger(id)){
+        return res.status(400).json({ error: 'El id debe ser un número' });
+    }
     const patient = await patientService.updatePatient(id, req.body.name, req.body.age);
     if(patient === undefined){
         return res.status(404).json({error: 'Paciente no encontrado'});
@@ -53,6 +59,9 @@ export async function updatePatient(req: Request, res: Response){
 export async function deletePatient(req: Request, res: Response){
     try{
         const id = Number(req.params.id);
+        if (!Number.isInteger(id)){
+        return res.status(400).json({ error: 'El id debe ser un número' });
+    }
     const deleted = await patientService.deletePatient(id);
     if(deleted === false){
         return res.status(404).json({error: 'Paciente no encontrado'});

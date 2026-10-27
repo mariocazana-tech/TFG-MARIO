@@ -4,9 +4,11 @@ import swaggerUi from 'swagger-ui-express';
 import YAML from 'yaml';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
+import { loggerMiddleware } from './common/middlewares/logger.middleware';
 
 const app = express();
 app.use(express.json());
+app.use(loggerMiddleware);
 const openapiPath = path.join(__dirname, '../docs/openapi.yaml');
 const openapiDocument = YAML.parse(readFileSync(openapiPath, 'utf8'));
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapiDocument));

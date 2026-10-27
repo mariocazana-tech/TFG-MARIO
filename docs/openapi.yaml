@@ -39,6 +39,8 @@ paths:
       responses:
         "201":
           description: Paciente creado
+        "400":
+          description: Datos no válidos (name debe ser texto y age un número)
 
 
   /patients/{id}:
@@ -55,6 +57,8 @@ paths:
           description: El paciente encontrado
         "404":                            
           description: Paciente no encontrado
+        "400":
+          description: Datos no válidos (El id debe ser un número)
     delete:
       summary: Borrar un paciente
       parameters:
@@ -66,6 +70,8 @@ paths:
       responses:
         "204":
           description: Paciente borrado
+        "400":
+          description: Datos no válidos (El id debe ser un número)
     
     patch:
       summary: Cambiar datos de un paciente
@@ -91,3 +97,5 @@ paths:
           description: Paciente actualizado
         "404":
           description: Paciente no encontrado
+        "400":
+          description: Datos no válidos (id no numérico, o name/age con tipo incorrecto)

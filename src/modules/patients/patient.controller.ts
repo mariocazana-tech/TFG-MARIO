@@ -46,6 +46,12 @@ export async function updatePatient(req: Request, res: Response){
         if (!Number.isInteger(id)){
         return res.status(400).json({ error: 'El id debe ser un número' });
     }
+    if (req.body.age !== undefined && typeof req.body.age !== 'number') {
+    return res.status(400).json({ error: 'age debe ser un número' });
+    }
+    if (req.body.name !== undefined && typeof req.body.name !== 'string') {
+    return res.status(400).json({ error: 'name debe ser un texto' });
+    }
     const patient = await patientService.updatePatient(id, req.body.name, req.body.age);
     if(patient === undefined){
         return res.status(404).json({error: 'Paciente no encontrado'});

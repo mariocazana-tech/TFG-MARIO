@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import * as patientService from './patient.service';
-import { remove } from './infra/repositories/patient.repository';
 
 export async function getPatients(req: Request, res: Response){
     try{

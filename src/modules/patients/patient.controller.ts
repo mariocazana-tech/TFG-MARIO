@@ -3,7 +3,11 @@ import * as patientService from './patient.service';
 
 export async function getPatients(req: Request, res: Response){
     try{
-        const patients = await patientService.listPatients();
+        let name: string | undefined = undefined;
+        if (typeof req.query.name === 'string'){
+            name = req.query.name;
+        }
+        const patients = await patientService.listPatients(name);
         res.json(patients);
     } catch (error){
         res.status(500).json({ error: 'Error del servidor'});
@@ -21,7 +25,7 @@ export async function getPatientById(req: Request, res: Response){
         return res.status(404).json({error: 'Paciente no encontrado'});
     }
     res.json(patient);
-    }catch (eror){
+    }catch (error){
         res.status(500).json({ error: 'Error del servidor'});
     }
 }

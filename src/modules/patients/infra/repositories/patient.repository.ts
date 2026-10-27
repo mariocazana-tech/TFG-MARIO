@@ -1,9 +1,15 @@
 import { Patient } from '../../types/patient.types';
 import { pool } from '../../../../database/pool';
 
-export async function findAll(): Promise<Patient[]> {
+export async function findAll(name?: string): Promise<Patient[]> {
+  if (name !== undefined) {
+    const result = await pool.query(
+      'SELECT * FROM patients WHERE name = $1', [name]
+    );
+    return result.rows;
+  }
   const result = await pool.query('SELECT * FROM patients');
-  return result.rows; 
+  return result.rows;
 }
 export async function findById(id: number): Promise<Patient | undefined> {
   const result = await pool.query('SELECT * FROM patients WHERE id = $1', [id]);

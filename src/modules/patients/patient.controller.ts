@@ -32,10 +32,6 @@ export async function getPatientById(req: Request, res: Response){
 
 export async function createPatient(req: Request, res: Response){
     try{
-        if (typeof req.body.name !== 'string' || typeof req.body.age !== 'number') {
-            return res.status(400).json({ error: 'name debe ser texto y age un número' });
-
-        }
         const newPatient = await patientService.createPatient(req.body.name, req.body.age);
         res.status(201).json(newPatient);
     }catch (error){
